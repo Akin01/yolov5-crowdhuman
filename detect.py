@@ -137,7 +137,7 @@ def detect(save_img=False):
                 if dataset.mode == 'image':
                     # cv2.imwrite(save_path, im0)
                     for crop_img in cropped_result:
-                        cv2.imwrite(save_path + str(random.randint(1, 1000)), crop_img)
+                        cv2.imwrite(save_path, crop_img)
                 else:  # 'video'
                     if vid_path != save_path:  # new video
                         vid_path = save_path
