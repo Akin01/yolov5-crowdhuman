@@ -11,7 +11,7 @@ from models.experimental import attempt_load
 from utils.datasets import LoadStreams, LoadImages
 from utils.general import check_img_size, check_requirements, check_imshow, non_max_suppression, apply_classifier, \
     scale_coords, xyxy2xywh, strip_optimizer, set_logging, increment_path
-from utils.plots import plot_one_box
+from utils.plots import plot_one_box, crop_img_by_bbox
 from utils.torch_utils import select_device, load_classifier, time_synchronized
 
 
@@ -86,6 +86,8 @@ def detect(save_img=False):
             else:
                 p, s, im0, frame = path, '', im0s, getattr(dataset, 'frame', 0)
 
+            cropped_result = []
+
             p = Path(p)  # to Path
             save_path = str(save_dir / p.name)  # img.jpg
             txt_path = str(save_dir / 'labels' / p.stem) + ('' if dataset.mode == 'image' else f'_{frame}')  # img.txt
@@ -114,7 +116,7 @@ def detect(save_img=False):
                             if 'head' in label and opt.heads:
                                 plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=3)
                             if 'person' in label and opt.person:
-                                print(xyxy, label)
+                                cropped_result.append(crop_img_by_bbox(xyxy, img))
                                 plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=3)
                         else:
                             plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=3)
@@ -130,7 +132,9 @@ def detect(save_img=False):
             # Save results (image with detections)
             if save_img:
                 if dataset.mode == 'image':
-                    cv2.imwrite(save_path, im0)
+                    # cv2.imwrite(save_path, im0)
+                    for crop_img in cropped_result:
+                        cv2.imwrite(save_path, crop_img)
                 else:  # 'video'
                     if vid_path != save_path:  # new video
                         vid_path = save_path
