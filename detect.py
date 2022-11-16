@@ -114,6 +114,7 @@ def detect(save_img=False):
                             if 'head' in label and opt.heads:
                                 plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=3)
                             if 'person' in label and opt.person:
+                                print(xyxy, label)
                                 plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=3)
                         else:
                             plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=3)
