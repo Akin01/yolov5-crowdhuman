@@ -124,6 +124,8 @@ def detect(save_img=False):
             # Print time (inference + NMS)
             print(f'{s}Done. ({t2 - t1:.3f}s)')
 
+            print(cropped_result)
+
             # Stream results
             if view_img:
                 cv2.imshow(str(p), im0)
