@@ -116,7 +116,7 @@ def detect(save_img=False):
                             if 'head' in label and opt.heads:
                                 plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=3)
                             if 'person' in label and opt.person:
-                                cropped_result.append(crop_img_by_bbox(xyxy, img))
+                                cropped_result.append(crop_img_by_bbox(xyxy, im0))
                                 plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=3)
                         else:
                             plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=3)
