@@ -1,6 +1,7 @@
 import argparse
 import time
 from pathlib import Path
+import random
 
 import cv2
 import torch
@@ -124,7 +125,7 @@ def detect(save_img=False):
             # Print time (inference + NMS)
             print(f'{s}Done. ({t2 - t1:.3f}s)')
 
-            print(cropped_result)
+            # print(cropped_result)
 
             # Stream results
             if view_img:
@@ -136,7 +137,7 @@ def detect(save_img=False):
                 if dataset.mode == 'image':
                     # cv2.imwrite(save_path, im0)
                     for crop_img in cropped_result:
-                        cv2.imwrite(save_path, crop_img)
+                        cv2.imwrite(save_path + str(random.randint(1, 1000)), crop_img)
                 else:  # 'video'
                     if vid_path != save_path:  # new video
                         vid_path = save_path
