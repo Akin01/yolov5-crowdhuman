@@ -12,7 +12,8 @@ from utils.general import check_img_size, non_max_suppression, scale_coords, set
 from models.experimental import attempt_load
 
 
-def cropImage(weights, img_obj, imgsz=640, device='cpu', augment=True, conf_thres=0.25, iou_thres=0.45, classes=None, agnostic_nms=False):
+def cropImage(weights, img_obj, imgsz=640, device='cpu', augment=True, conf_thres=0.25, iou_thres=0.45, classes=None,
+              agnostic_nms=False):
     # Initialize
     set_logging()
     device = select_device(device)
@@ -22,6 +23,9 @@ def cropImage(weights, img_obj, imgsz=640, device='cpu', augment=True, conf_thre
     model = attempt_load(weights, map_location=device)  # load FP32 model
     stride = int(model.stride.max())  # model stride
     imgsz = check_img_size(imgsz, s=stride)  # check img_size
+
+    # Get names and colors
+    names = model.module.names if hasattr(model, 'module') else model.names
 
     if half:
         model.half()  # to FP16
@@ -75,7 +79,9 @@ def cropImage(weights, img_obj, imgsz=640, device='cpu', augment=True, conf_thre
 
                 # Write results
                 for *xyxy, conf, cls in reversed(det):
-                    cropped_img_result.append(crop_img_by_bbox(xyxy, img_nump_arr))
+                    label = f'{names[int(cls)]} {conf:.2f}'
+                    if 'person' in label:
+                        cropped_img_result.append(crop_img_by_bbox(xyxy, img_nump_arr))
 
         # Print time (inference + NMS)
         print(f'inference + NMS Done. ({t2 - t1:.3f}s)')
@@ -96,4 +102,3 @@ def cropImage(weights, img_obj, imgsz=640, device='cpu', augment=True, conf_thre
 
 if __name__ == "__main__":
     print(cropImage("crowdhuman_yolov5m.pt", dummy))
-
