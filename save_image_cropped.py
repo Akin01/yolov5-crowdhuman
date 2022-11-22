@@ -9,7 +9,8 @@ if not os.path.exists("cropped_img"):
 cropped_img = cropImage("crowdhuman_yolov5m.pt", dummy)
 
 for img in cropped_img:
+    if not os.path.exists(f"cropped_img/frame_{img['frame']}"):
+        os.mkdir(f"cropped_img/frame_{img['frame']}")
+
     for idx, img_result in enumerate(img["image"]):
-        if not os.path.exists(f"cropped_img/frame_{img['frame']}"):
-            os.mkdir(f"cropped_img/frame_{img['frame']}")
         cv2.imwrite(f"./cropped_img/frame_{img['frame']}/people{idx}.jpg", img_result)
