@@ -12,4 +12,4 @@ for img in cropped_img:
     for img_result in img["image"]:
         if not os.path.exists(f"cropped_img/frame_{img['frame']}"):
             os.mkdir(f"cropped_img/frame_{img['frame']}")
-        cv2.imwrite(f"cropped_img/frame_{img['frame']}", img_result)
+        cv2.imwrite(f"./cropped_img/frame_{img['frame']}.jpg", img_result)
