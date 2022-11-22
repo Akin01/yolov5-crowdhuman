@@ -8,6 +8,8 @@ if not os.path.exists("cropped_img"):
 
 cropped_img = cropImage("crowdhuman_yolov5m.pt", dummy)
 
+print(f"data length: {len(cropped_img)}")
+
 for img in cropped_img:
     if not os.path.exists(f"cropped_img/frame_{img['frame']}"):
         os.mkdir(f"cropped_img/frame_{img['frame']}")
