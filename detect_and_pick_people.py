@@ -35,7 +35,7 @@ def cropImage(weights, img_obj, imgsz=640, device='cpu', augment=True, conf_thre
     img_arr_result = []
 
     for idx, key in enumerate(img_obj["gallery_images"]):
-        print(f"frame {key['frame']}")
+        print(f"frame {idx}")
         parse_uri = (key["image"]).split(",")[1]
         decoded_img = base64.b64decode(parse_uri)
 
