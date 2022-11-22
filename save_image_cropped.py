@@ -9,4 +9,5 @@ cropped_img = cropImage("crowdhuman_yolov5m.pt", dummy)
 
 for img in cropped_img:
     for img_result in img["image"]:
+        os.mkdir(f"cropped_img/frame_{img['frame']}")
         cv2.imwrite(f"cropped_img/frame_{img['frame']}", img_result)
