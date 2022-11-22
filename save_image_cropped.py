@@ -3,11 +3,13 @@ from dummy_data import dummy
 import os
 import cv2
 
-os.mkdir("cropped_img")
+if not os.path.exists("cropped_img"):
+    os.mkdir("cropped_img")
 
 cropped_img = cropImage("crowdhuman_yolov5m.pt", dummy)
 
 for img in cropped_img:
     for img_result in img["image"]:
-        os.mkdir(f"cropped_img/frame_{img['frame']}")
+        if not os.path.exists(f"cropped_img/frame_{img['frame']}"):
+            os.mkdir(f"cropped_img/frame_{img['frame']}")
         cv2.imwrite(f"cropped_img/frame_{img['frame']}", img_result)
