@@ -46,7 +46,7 @@ def cropImage(weights, img_obj, imgsz=640, device='cpu', augment=True, conf_thre
         img = letterbox(img_nump_arr, imgsz, stride=stride)[0]
 
         # Convert
-        img = img[:, :, ::-1].transpose(2, 0, 1)  # BGR to RGB, to 3x416x416
+        # img = img[:, :, ::-1].transpose(2, 0, 1)  # BGR to RGB, to 3x416x416
         img = np.ascontiguousarray(img)
 
         img = torch.from_numpy(img).to(device)
