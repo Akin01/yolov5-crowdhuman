@@ -89,7 +89,7 @@ def cropImage(weights, img_obj, imgsz=640, device='cpu', augment=True, conf_thre
 
         print(f'Done. ({time.time() - t0:.3f}s)')
 
-        return img_arr_result
+        return img_arr_result[0]
 
 
 if __name__ == "__main__":
