@@ -6,7 +6,7 @@ import cv2
 if not os.path.exists("cropped_img"):
     os.mkdir("cropped_img")
 
-cropped_img = cropImage("crowdhuman_yolov5m.pt", dummy, device='')
+cropped_img = cropImage("crowdhuman_yolov5m.pt", dummy)
 
 for img in cropped_img:
     if not os.path.exists(f"cropped_img/frame_{img['frame']}"):
